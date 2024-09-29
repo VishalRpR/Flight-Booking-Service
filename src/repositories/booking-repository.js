@@ -7,9 +7,14 @@ class BookigRepository extends CrudRepository{
     }
 
 
-    async createBooking(){
+    async createBooking(data,transaction){
+        console.log(transaction)
             const response=await Booking.create(data,{transaction:transaction});
-            return response
+            return response;
+    }
+
+    async get(){
+
     }
 }
 

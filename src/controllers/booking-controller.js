@@ -29,6 +29,10 @@ try {
    
 }
 
+async function makePayment(){
+    
+}
+
 
 module.exports={
     createBooking
