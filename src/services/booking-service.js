@@ -1,6 +1,6 @@
 const { default: axios } = require("axios")
 const db = require("../models")
-const { ServerConfig } = require("../config");
+const { ServerConfig, Queue } = require("../config");
 const AppError = require('../utils/errors/app-error');
 const BookigRepository = require("../repositories/booking-repository");
 const { StatusCodes } = require("http-status-codes");
@@ -69,6 +69,11 @@ async function makePayment(data){
         //here we assume that payment is successfull
 
         await bookingRepository.update(data.bookingId,{status:BOOKED},transaction);
+        Queue.sendData({
+            recepientEmail: 'cmpn20102a0019@gmail.com',
+            subject: 'Flight booked',
+            text: `Booking successfully done for the booking ${data.bookingId}`
+        })
         await transaction.commit();
 
 
